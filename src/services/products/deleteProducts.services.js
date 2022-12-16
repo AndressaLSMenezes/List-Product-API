@@ -1,5 +1,5 @@
 import { database } from "../../database";
-
+import AppError from "../../errors/appError";
 const deleteProductsService = async (productId) => {
   const findCategory = await database.query(
     `
@@ -19,12 +19,12 @@ const deleteProductsService = async (productId) => {
 
   const queryResponse = await database.query(
     `
-        DELETE 
-        FROM 
-            products 
-        WHERE 
-            id = $1;
-        `,
+    DELETE 
+    FROM 
+        products 
+    WHERE 
+        id = $1;
+    `,
     [productId]
   );
 

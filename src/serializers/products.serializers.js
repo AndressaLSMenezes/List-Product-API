@@ -17,6 +17,6 @@ const listProductsSerializers = yup.array(productsResponseSerializers);
 
 export {
   createProductsSerializers,
-  listProductsSerializers, 
+  listProductsSerializers,
   productsResponseSerializers,
 };

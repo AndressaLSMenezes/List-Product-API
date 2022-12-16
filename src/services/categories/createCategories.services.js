@@ -1,6 +1,6 @@
 import { database } from "../../database";
 import AppError from "../../errors/appError";
-import { categoriesResponseSerializers } from "../../serializers/categories.serializers";
+import { categoryResponseSerializers } from "../../serializers/categories.serializers";
 
 const createCategoryService = async (data) => {
   const findCategory = await database.query(
@@ -15,9 +15,10 @@ const createCategoryService = async (data) => {
     [data.name]
   );
 
-  if (findCategory.rows.length) {
-    throw new AppError("Category already exists", 409);
+  if (findCategory.rows.length > 0) {
+    throw new AppError("Category already exists", 400);
   }
+
   const queryResponse = await database.query(
     ` INSERT INTO 
               categories(name)
@@ -27,9 +28,11 @@ const createCategoryService = async (data) => {
           `,
     [data.name]
   );
-  const returnCategory = await categoriesResponseSerializers.validate(
+
+  const returnCategory = await categoryResponseSerializers.validate(
     queryResponse.rows[0]
   );
+
   return returnCategory;
 };
 

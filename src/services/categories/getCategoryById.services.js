@@ -10,7 +10,7 @@ const getCategoryByIdServices = async (categoryId) => {
     FROM
       categories
     WHERE
-      name = $1;
+      id = $1;
     `,
     [categoryId]
   );

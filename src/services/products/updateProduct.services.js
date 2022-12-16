@@ -1,7 +1,24 @@
 import { database } from "../../database";
 import { productsResponseSerializers } from "../../serializers/products.serializers";
+import AppError from "../../errors/appError";
 
 const updateProductService = async (productData, productId) => {
+  const findProduct = await database.query(
+    `
+    SELECT
+      *
+    FROM
+      products
+    WHERE
+      id = $1;
+    `,
+    [productId]
+  );
+
+  if (!findProduct.rows) {
+    throw new AppError("Not found product", 404);
+  }
+
   let query = "UPDATE products SET ";
 
   const keys = Object.keys(productData);

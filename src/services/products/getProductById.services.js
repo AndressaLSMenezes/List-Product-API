@@ -1,8 +1,8 @@
 import { database } from "../../database";
 import AppError from "../../errors/appError";
+import { productsResponseSerializers } from "../../serializers/products.serializers";
 
 const getProductByIdService = async (productId) => {
-
   const findProduct = await database.query(
     `
     SELECT
@@ -15,7 +15,7 @@ const getProductByIdService = async (productId) => {
     [productId]
   );
 
-  if (!findProduct.rows) {
+  if (!findProduct.rows.length) {
     throw new AppError("Not found product", 404);
   }
 
@@ -31,7 +31,11 @@ const getProductByIdService = async (productId) => {
     [productId]
   );
 
-  return queryResponse.rows[0];
+  const returProduct = productsResponseSerializers.validate(
+    queryResponse.rows[0]
+  );
+
+  return returProduct;
 };
 
 export default getProductByIdService;

@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon ./src/server.js",
     "actions": "cross-env NODE_ENV=test DB_USER=kenzie DB_PASSWORD=kenzie jest --forceExit",
-    "clear_db": "psql -U andressa -d tests_products -c \"DELETE FROM products; DELETE FROM categories;\" \"exit\"" ,
+    "clear_db": "psql -U andressa -d tests_products -c \"DELETE FROM products; DELETE FROM categories;\" \"exit\"",
     "test": "cross-env NODE_ENV=test DB_USER=andressa DB_PASSWORD=tinocandoRain23 jest --verbose --forceExit"
   },
   "dependencies": {

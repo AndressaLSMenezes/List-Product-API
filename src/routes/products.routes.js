@@ -24,6 +24,6 @@ productsRouter.get("/:id", getProductByIdController);
 productsRouter.patch("/:id", updateProductController);
 
 productsRouter.delete("/:id", deleteProductsController);
-productsRouter.get("/category/:categoryId", getProductsByCategoryController);
+productsRouter.get("/category/:category_id", getProductsByCategoryController);
 
 export default productsRouter;

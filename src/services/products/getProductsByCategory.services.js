@@ -1,31 +1,15 @@
 import { database } from "../../database";
 
 const getProductsByCategoryService = async (categoryId) => {
-
-  const findCategory = await database.query(
-    `
-    SELECT
-      *
-    FROM
-      categories
-    WHERE
-      id = $1;
-    `,
-    [categoryId]
-  );
-
-  if (!findCategory.rows.length) {
-    throw new AppError("Not found category", 404);
-  }
-
   const queryResponse = await database.query(
     `
-      SELECT 
-          *
-          FROM 
-              products 
-          WHERE 
-              category_id = $1;
+    SELECT  
+      p.name, p.price, c.name AS category
+    FROM 
+      products AS p
+    JOIN 
+      categories AS c ON p.category_id = c.id
+    WHERE c.id = $1;
     `,
     [categoryId]
   );
